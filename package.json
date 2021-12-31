@@ -1,0 +1,22 @@
+{
+  "name": "com.eulasi.jsblockchain",
+  "version": "1.0.0",
+  "description": "Blockchain for cloud development project.",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eulasi/blockchain-zero.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eulasi/blockchain-zero/issues"
+  },
+  "homepage": "https://github.com/eulasi/blockchain-zero#readme",
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  }
+}
