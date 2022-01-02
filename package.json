@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/eulasi/blockchain-zero#readme",
   "dependencies": {
-    "crypto-js": "^4.1.1"
+    "crypto-js": "^4.1.1",
+    "node": "^17.3.0"
   }
 }
