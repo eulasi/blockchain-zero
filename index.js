@@ -7,17 +7,31 @@ class Block {
         this.index = index;
         this.timestamp = timestamp;
         this.data = data;
-        this.previousHash = this.previousHash
+        this.previousHash = this.previousHash;
+        this.nonce = 0;
+        this.hash = this.calculateHash();
     }
     // current block definition. Header value for block linking
     calculateHash() {
-        return SHA256( this.index + this.previousHash + this.timestamp + JSON.stringify( this.data)).toString();
+        return SHA256( this.index + this.previousHash + this.timestamp + JSON.stringify( this.data) + this.nonce ).toString();
+    }
+    // mine block security check
+    mineBlock( difficulty ) {
+        let count = 0;
+        while( this.hash.substring(0, difficulty ) !== Array( difficulty + 1).join("0" ) ) {
+            this.nonce++;
+            count++;
+            this.hash = this.calculateHash();
+        }
+
+        console.log( "Block successfully hashed: (" + count + "iterations). Hash: " + this.hash );
     }
 }
 // Blockchain class used for the block linking
 class Blockchain {
     constructor() {
         this.chain = [ this.createGenesisBlock() ];
+        this.difficulty = 4;
     }
     // first block in chain creation
     createGenesisBlock() {
@@ -30,7 +44,7 @@ class Blockchain {
     // adding new block to previous block hash property to create chain link
     addBlock( newBlock) {
         newBlock.previousHash = this.getlatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock( this.difficulty);
         this.chain.push ( newBlock );
     }
 
@@ -55,14 +69,13 @@ class Blockchain {
 }
 // creating demo blocks
 let demoChain = new Blockchain();
+
+console.log("Starting to mine a new block...")
 demoChain.addBlock( new Block( 1, "2/01/2022", {
     amount: 10
 } ) );
+
+console.log("Starting to mine a new block...")
 demoChain.addBlock( new Block( 2, "3/01/2022", {
     amount: 25
 } ) );
-
-// console for visual
-console.log( JSON.stringify( demoChain, null, 4 ) );
-
-console.log( "Is chain valid? " + demoChain.isChainValid() );
